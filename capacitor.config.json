@@ -1,0 +1,16 @@
+{
+  "appId": "dev.openhands.remote",
+  "appName": "OpenHands",
+  "webDir": "www",
+  "server": {
+    "iosScheme": "http",
+    "hostname": "localhost",
+    "allowNavigation": ["*"],
+    "errorPath": "error.html"
+  },
+  "ios": {
+    "contentInset": "never",
+    "scrollEnabled": true,
+    "limitsNavigationsToAppBoundDomains": false
+  }
+}
