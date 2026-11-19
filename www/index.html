@@ -218,7 +218,8 @@
     var parts = u.hostname.split('.');
     if (parts.length !== 4) { status('只支持 IPv4 地址', 'err'); return; }
     var base = parts.slice(0, 3).join('.') + '.';
-    var port = u.port || '8000';
+    var scheme = u.protocol === 'https:' ? 'https' : 'http';
+    var port = u.port || (scheme === 'https' ? '443' : '8000');
 
     var box = $('#scanBox');
     var found = [];
@@ -248,9 +249,9 @@
     function next() {
       if (!queue.length) return Promise.resolve();
       var h = queue.shift();
-      return probe('http://' + h + ':' + port, 900).then(function (ok) {
+      return probe(scheme + '://' + h + ':' + port, 900).then(function (ok) {
         done++;
-        if (ok) found.push('http://' + h + ':' + port);
+        if (ok) found.push(scheme + '://' + h + ':' + port);
         if (ok || done % 16 === 0) render();
         return next();
       });
